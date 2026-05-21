@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+/* ── ROOT THEME VARIABLES ── */
+:root {
+  --brand-primary:   #FF6B35;
+  --brand-secondary: #F7C59F;
+  --brand-third:     #EFEFD0;
+  --brand-fourth:    #004E89;
+  --bg-main:         #FFF8F0;
+  --bg-card:         #FFFFFF;
+  --text-primary:    #1A1A2E;
+  --text-secondary:  #3A3A5C;
+  --text-muted:      #7A7A9A;
+  --border-muted:    #DDDDE8;
+  /* Dashboard */
+  --dash-bg:      #f0f2f7;
+  --dash-bg2:     #ffffff;
+  --dash-bg3:     #f5f7fb;
+  --dash-border:  #e2e6f0;
+  --dash-border2: #ccd2e0;
+  --dash-text:    #1a2035;
+  --dash-muted:   #7a869a;
+  --dash-accent:  #6c63ff;
+  --dash-accent2: #4f46e5;
+  --dash-green:   #16a34a;
+  --dash-yellow:  #d97706;
+  --dash-red:     #dc2626;
+  --dash-blue:    #2563eb;
+  --dash-cyan:    #0891b2;
+  --dash-pink:    #db2777;
+  --dash-orange:  #ea580c;
+  --dash-shadow:  0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  --dash-shadow-hover: 0 8px 32px rgba(0,0,0,.12);
+}
+
+[data-theme="dark"] {
+  --bg-main:      #1A1A2E;
+  --bg-card:      #24243E;
+  --text-primary: #F0F0F5;
+  --text-secondary:#C0C0D0;
+  --text-muted:   #8080A0;
+  --border-muted: #3A3A5C;
+  /* Dashboard dark */
+  --dash-bg:      #0f1117;
+  --dash-bg2:     #161b27;
+  --dash-bg3:     #1e2536;
+  --dash-border:  #2a3245;
+  --dash-border2: #323d56;
+  --dash-text:    #e8eaf0;
+  --dash-green:   #22c55e;
+  --dash-yellow:  #f59e0b;
+  --dash-red:     #ef4444;
+  --dash-blue:    #3b82f6;
+  --dash-cyan:    #06b6d4;
+  --dash-pink:    #ec4899;
+  --dash-orange:  #f97316;
+  --dash-shadow:  0 1px 4px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.4);
+  --dash-shadow-hover: 0 8px 32px rgba(0,0,0,.5);
+}
+
+/* ── BODY ── */
+body {
+  @apply font-sans antialiased transition-colors duration-300;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── DASHBOARD-SPECIFIC: only rules Tailwind cannot express ── */
+
+/* Sidebar collapse toggle — depends on .collapsed sibling state */
+.dash-sidebar { transition: width 0.25s ease; }
+.dash-sidebar.collapsed { width: 64px !important; }
+.dash-sidebar.collapsed .sidebar-hide { display: none !important; }
+
+/* KPI top-border accent strips via ::before */
+.kpi-card { position: relative; overflow: hidden; }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.kpi-purple::before { background: linear-gradient(90deg, var(--dash-accent), var(--dash-pink)); }
+.kpi-green::before  { background: linear-gradient(90deg, var(--dash-green),  var(--dash-cyan)); }
+.kpi-orange::before { background: linear-gradient(90deg, var(--dash-orange), var(--dash-yellow)); }
+.kpi-blue::before   { background: linear-gradient(90deg, var(--dash-blue),   var(--dash-cyan)); }
+
+/* Dashboard badge dot via ::before */
+.dash-badge::before { content: ''; @apply inline-block w-1.5 h-1.5 rounded-full bg-current mr-1; }
+
+/* Modal animation */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-16px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+.modal-animate { animation: modalIn 0.2s ease; }
+
+/* Canvas sparkline */
+.spark { display: block; width: 100%; height: 36px; }
