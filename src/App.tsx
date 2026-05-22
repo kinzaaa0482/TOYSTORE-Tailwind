@@ -12,6 +12,7 @@ import Cart from './pages/Cart/page';
 import Dashboard from './pages/Dashboard/page';
 import Insert from './pages/Insert/page';
 import Reviews from './pages/Reviews/page';
+import Profile from './pages/Profile/page';
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/cart"      element={<Layout><Cart /></Layout>} />
             <Route path="/insert"    element={<Layout><Insert /></Layout>} />
             <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+            <Route path="/profile"   element={<Layout><Profile /></Layout>} />
             <Route path="*"          element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>

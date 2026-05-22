@@ -101,6 +101,16 @@ export default function Navbar() {
           <Link to="/dashboard" className={`${navLink} ${isActive('/dashboard')}`}>Dashboard</Link>
         </li>
 
+        {/* Profile */}
+        <li>
+          <Link to="/profile" className={`${navLink} ${isActive('/profile')} flex items-center gap-1.5`}>
+            <span className="w-5 h-5 rounded-full bg-[#FF6B35] flex items-center justify-center text-[10px] font-bold text-white shrink-0">
+              {isLoggedIn ? (localStorage.getItem('ts_user') || 'U').charAt(0).toUpperCase() : '👤'}
+            </span>
+            Profile
+          </Link>
+        </li>
+
         {/* Theme toggle */}
         <li>
           <button
@@ -115,12 +125,23 @@ export default function Navbar() {
         {/* Auth */}
         <li>
           {isLoggedIn ? (
-            <button
-              onClick={() => { localStorage.removeItem('ts_user'); navigate('/login'); }}
-              className="bg-[#FF6B35] text-white border-none rounded-md px-4 py-2 text-sm font-semibold cursor-pointer hover:bg-orange-600 transition-colors"
-            >
-              Logout
-            </button>
+            <div className="flex items-center gap-2">
+              <Link
+                to="/profile"
+                className="flex items-center gap-2 bg-white/15 text-white px-3 py-1.5 rounded-lg text-sm font-semibold no-underline hover:bg-white/25 transition-colors"
+              >
+                <span className="w-6 h-6 rounded-full bg-[#FF6B35] flex items-center justify-center text-xs font-bold">
+                  {(localStorage.getItem('ts_user') || 'U').charAt(0).toUpperCase()}
+                </span>
+                Profile
+              </Link>
+              <button
+                onClick={() => { localStorage.removeItem('ts_user'); navigate('/login'); }}
+                className="bg-[#FF6B35] text-white border-none rounded-md px-3 py-2 text-sm font-semibold cursor-pointer hover:bg-orange-600 transition-colors"
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <button
               onClick={() => navigate('/login')}
@@ -159,6 +180,7 @@ export default function Navbar() {
             { to: '/reviews',   label: 'Reviews'   },
             { to: '/contact',   label: 'Contact'   },
             { to: '/dashboard', label: 'Dashboard' },
+            { to: '/profile',   label: '👤 Profile'  },
           ].map(({ to, label }) => (
             <Link
               key={to}
@@ -193,12 +215,21 @@ export default function Navbar() {
 
           <div className="px-4 pt-2">
             {isLoggedIn ? (
-              <button
-                onClick={() => { localStorage.removeItem('ts_user'); navigate('/login'); setMenuOpen(false); }}
-                className="w-full bg-[#FF6B35] text-white border-none rounded-md px-4 py-2.5 text-sm font-semibold cursor-pointer hover:bg-orange-600 transition-colors"
-              >
-                Logout
-              </button>
+              <div className="flex flex-col gap-2">
+                <Link
+                  to="/profile"
+                  onClick={() => setMenuOpen(false)}
+                  className="w-full text-center no-underline bg-white/15 text-white rounded-md px-4 py-2.5 text-sm font-semibold hover:bg-white/25 transition-colors"
+                >
+                  👤 My Profile
+                </Link>
+                <button
+                  onClick={() => { localStorage.removeItem('ts_user'); navigate('/login'); setMenuOpen(false); }}
+                  className="w-full bg-[#FF6B35] text-white border-none rounded-md px-4 py-2.5 text-sm font-semibold cursor-pointer hover:bg-orange-600 transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
               <button
                 onClick={() => { navigate('/login'); setMenuOpen(false); }}
